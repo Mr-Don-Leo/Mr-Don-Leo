@@ -27,9 +27,11 @@
 <h1 align="center">👩‍💻  About Me</h1>
 
 ###
-```c
-printf("Hello World, My name is Maksim");
-```
+<h3>
+  ```c
+  printf("Hello World, My name is Maksim");
+  ```
+</h3>
 
 ###
 
