@@ -28,7 +28,9 @@
 
 ###
 
-<pre><code class="language-c">printf("Hello World, My name is Maksim");</code></pre>
+<pre style="color: #4CAF50;"><code>
+printf("<span style='color: #0074D9;'>Hello World</span>, My name is <span style='color: #FF4136;'>Maksim</span>");
+</code></pre>
 
 ###
 
