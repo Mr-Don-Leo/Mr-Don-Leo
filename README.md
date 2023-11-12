@@ -28,7 +28,7 @@
 
 ###
 
-<h3 align="left">printf(”Hello World, My name is Maksim”);</h3>
+<pre><code class="language-c">printf("Hello World, My name is Maksim");</code></pre>
 
 ###
 
