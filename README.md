@@ -1,5 +1,5 @@
 ### 
-![Coding Pengu]([https://i.gifer.com/YCZM.mp4](https://i.gifer.com/YCZM.gif))
+![Coding Pengu](https://miro.medium.com/v2/resize:fit:679/0*VKRF06PG__L5Fj57.gif)
 ###
 
 <div align="center">
