@@ -32,7 +32,7 @@ printf("Hello World, My name is Maksim");
 
 ###
 
-<p align="left">Welcome to my little GitHub den, a little safe to store my coding journey and projects.<br><br>Currently residing in UAE, with a strong ambition in the world of coding. <br><br>Currently I am a student at 42 Abu Dhabi, slowly making my way up in projects. And evolving my skills in various languages and programming in general; whether its with personal projects, or 42 related projects.<br><br>The passion for coding, and the digital world grew with the thought of 'creating' something, that can function, and people can use. It felt great to me, and I yearn for working on things that can make a positive change for people to use and catch sight of. It is not only contained within the spectrum of the screen, but it also falls into the physical world, like robots 🤖.</p>
+<p align="left">Welcome to my little GitHub den, a little safe to store my coding journey and projects.<br><br>Currently residing in UAE, with a strong ambition in the world of coding. <br><br>I am a student at 42 Abu Dhabi, slowly making my way up in projects. And evolving my skills in various languages and programming in general; whether its with personal projects, or 42 related projects.<br><br>The passion for coding, and the digital world grew with the thought of 'creating' something, that can function, and people can use. It felt great to me, and I yearn for working on things that can make a positive change for people to use and catch sight of. It is not only contained within the spectrum of the screen, but it also falls into the physical world, like robots 🤖.</p>
 
 ###
 
