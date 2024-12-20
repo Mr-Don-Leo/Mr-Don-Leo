@@ -27,7 +27,7 @@
 ###
 
 ```c
-printf("Hello World, My name is Maksim");
+printf("Hello World, My name is Max");
 ```
 
 ###
