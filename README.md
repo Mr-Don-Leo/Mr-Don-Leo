@@ -32,7 +32,7 @@ printf("Hello World, My name is Max");
 
 ###
 
-<p align="left">Welcome to my little GitHub den, a little safe to store my coding journey and projects.<br><br>Currently residing in UAE, with a strong ambition in the world of coding. <br><br>I am a student at 42 Abu Dhabi, slowly making my way up in projects. And evolving my skills in various languages and programming in general; whether its with personal projects, or 42 related projects.<br><br>The passion for coding, and the digital world grew with the thought of 'creating' something, that can function, and people can use. It felt great to me, and I yearn for working on things that can make a positive change for people to use and catch sight of. It is not only contained within the spectrum of the screen, but it also falls into the physical world, like robots 🤖.</p>
+<p align="left">Welcome to my little GitHub den, a little safe place to store my coding journey and projects.<br><br>Currently residing in UAE, with an ambition in the world of coding. <br><br>I am a student at 42 Abu Dhabi, slowly making my way up in projects. And evolving my skills in various languages and programming in general, whether it's with personal projects or 42-related projects.<br><br>The passion for coding and the digital world grew with the thought of 'creating' something that can function, and people can use. It felt great to me, and I yearn to work on things that can make a positive change for people to use and catch sight of. It is not only contained within the spectrum of the screen, but it also falls into the physical world, like robots 🤖.</p>
 
 ###
 
@@ -40,7 +40,7 @@ printf("Hello World, My name is Max");
 
 ###
 
-<p align="left">I started to learn basics of Python when I was in my last years of secondary school and beginning of high-school. At that point in time, it was on and off learning. And around 2022-2023 I began to take it more seriously, up until I joined 42 Abu Dhabi, when it became a much more serious way of learning.</p>
+<p align="left">I started to learn basics of Python when I was in my last years of secondary school and the beginning of high school. Then, it was on and off learning. And around 2022-2023, I began to take it more seriously, up until I joined 42 Abu Dhabi, when it became a much more serious way of learning.</p>
 
 ###
 
