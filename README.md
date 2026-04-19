@@ -1,51 +1,28 @@
-# Maksim Babayan
+# Max Babayan
 
-**Builder. Engineer. Founder in progress.**
-
-Based in Abu Dhabi, UAE — turning ideas into products people actually use.
+Abu Dhabi · 42 student · Building things that (mostly) work
 
 -----
 
-## Who I Am
+I write code. Sometimes it compiles on the first try. I’m told this is rare and I should not get used to it.
 
-I’m a developer and entrepreneur at 42 Abu Dhabi with a hands-on approach to building things that work. My background spans system programming, web development, game dev, and product design. I’m not just writing code — I’m building platforms, solving real problems, and thinking about scale from day one.
+Currently focused on two products: a car community platform for the MENA region — because car people deserve better than WhatsApp groups — and a luxury gifting platform in the UAE called **Haditi**. Both are works in progress. Both are real.
 
-Currently shipping two products:
-
-- 🚗 **[Car Community App]** — A mobile-first platform for car culture in the MENA region. Built around the idea that your car is your identity.
-- 🎁 **Haditi** — A luxury gifting platform for the UAE market.
+Background is a mix of system programming at 42, some game dev, and enough JavaScript to know I prefer working closer to the metal. I pick up what the project needs and move on.
 
 -----
 
-## Stack & Tools
+## Stack
 
-**Languages**
-`C` · `JavaScript` · `Python` · `SQL`
+`C` · `JavaScript` · `React` · `Python` · `SQL` · `Blender` · `Photoshop`
 
-**Frontend**
-`React` · `HTML/CSS`
-
-**3D & Design**
-`Blender` · `Photoshop`
-
-**Currently learning**
-`Node.js / Fastify` · `Mobile-first UI/UX` · `System design`
+Currently working with: `Node.js / Fastify` · `Mobile UI/UX`
 
 -----
 
-## Background
+## 42 Abu Dhabi
 
-- 🎓 Student at **42 Abu Dhabi** — project-based, peer-to-peer, no lectures. You sink or swim.
-- 🕹️ Previously worked in **game development** — where I learned that performance and user experience are everything.
-- Started coding in Python during high school. Got serious around 2022. No looking back.
-
------
-
-## What Drives Me
-
-The idea that you can sit down, write code, and ship something real that people use — that hasn’t gotten old. I’m drawn to products that solve friction, especially in markets that are underserved. The MENA region has appetite and purchasing power; it just needs better-built products.
-
-Outside of code: cars, gym, and figuring out how things work mechanically and structurally.
+Project-based, no lectures, peer-evaluated. You either figure it out or you figure it out. There’s no third option.
 
 -----
 
@@ -61,8 +38,6 @@ Outside of code: cars, gym, and figuring out how things work mechanically and st
 </div>
 
 -----
-
-## Connect
 
 [![LinkedIn](https://img.shields.io/static/v1?message=LinkedIn&logo=linkedin&label=&color=0077B5&logoColor=white&style=for-the-badge)](https://www.linkedin.com/in/maxim-babayan-429181273/)
 [![Instagram](https://img.shields.io/static/v1?message=Instagram&logo=instagram&label=&color=E4405F&logoColor=white&style=for-the-badge)](https://www.instagram.com/maxim.babayan/)
