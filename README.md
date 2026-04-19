@@ -1,4 +1,4 @@
-# Max Babayan
+# Maksim Babayan
 
 Abu Dhabi · 42 student · Building things that (mostly) work
 
