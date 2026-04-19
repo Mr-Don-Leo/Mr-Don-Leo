@@ -1,4 +1,4 @@
-# Max Babayan
+# Maksim Babayan
 
 **Builder. Engineer. Founder in progress.**
 
