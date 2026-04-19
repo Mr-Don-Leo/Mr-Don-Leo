@@ -1,84 +1,69 @@
-### 
-![Coding Pengu](https://miro.medium.com/v2/resize:fit:679/0*VKRF06PG__L5Fj57.gif)
-###
+# Max Babayan
+
+**Builder. Engineer. Founder in progress.**
+
+Based in Abu Dhabi, UAE — turning ideas into products people actually use.
+
+-----
+
+## Who I Am
+
+I’m a developer and entrepreneur at 42 Abu Dhabi with a hands-on approach to building things that work. My background spans system programming, web development, game dev, and product design. I’m not just writing code — I’m building platforms, solving real problems, and thinking about scale from day one.
+
+Currently shipping two products:
+
+- 🚗 **[Car Community App]** — A mobile-first platform for car culture in the MENA region. Built around the idea that your car is your identity.
+- 🎁 **Haditi** — A luxury gifting platform for the UAE market.
+
+-----
+
+## Stack & Tools
+
+**Languages**
+`C` · `JavaScript` · `Python` · `SQL`
+
+**Frontend**
+`React` · `HTML/CSS`
+
+**3D & Design**
+`Blender` · `Photoshop`
+
+**Currently learning**
+`Node.js / Fastify` · `Mobile-first UI/UX` · `System design`
+
+-----
+
+## Background
+
+- 🎓 Student at **42 Abu Dhabi** — project-based, peer-to-peer, no lectures. You sink or swim.
+- 🕹️ Previously worked in **game development** — where I learned that performance and user experience are everything.
+- Started coding in Python during high school. Got serious around 2022. No looking back.
+
+-----
+
+## What Drives Me
+
+The idea that you can sit down, write code, and ship something real that people use — that hasn’t gotten old. I’m drawn to products that solve friction, especially in markets that are underserved. The MENA region has appetite and purchasing power; it just needs better-built products.
+
+Outside of code: cars, gym, and figuring out how things work mechanically and structurally.
+
+-----
+
+## Stats
 
 <div align="center">
-  <a href="https://www.linkedin.com/in/maxim-babayan-429181273/" target="_blank">
-    <img src="https://img.shields.io/static/v1?message=LinkedIn&logo=linkedin&label=&color=0077B5&logoColor=white&labelColor=&style=for-the-badge" height="25" alt="linkedin logo"  />
-  </a>
-  <a href="https://www.instagram.com/maxim.babayan/" target="_blank">
-    <img src="https://img.shields.io/static/v1?message=Instagram&logo=instagram&label=&color=E4405F&logoColor=white&labelColor=&style=for-the-badge" height="25" alt="instagram logo"  />
-  </a>
-  <a href="t.me/baduser" target="_blank">
-    <img src="https://img.shields.io/static/v1?message=Telegram&logo=telegram&label=&color=2CA5E0&logoColor=white&labelColor=&style=for-the-badge" height="25" alt="telegram logo"  />
-  </a>
+  <img src="https://github-readme-stats.vercel.app/api?username=Mr-Don-Leo&hide_title=false&hide_rank=false&show_icons=true&include_all_commits=true&count_private=true&theme=dracula&hide_border=false" height="150" />
+  <img src="https://github-readme-stats.vercel.app/api/top-langs?username=Mr-Don-Leo&layout=compact&langs_count=5&theme=dracula&hide_border=false" height="150" />
 </div>
-
-###
 
 <div align="center">
-  <img src="https://profile-counter.glitch.me/Mr-Don-Leo/count.svg?"  />
+  <img src="https://streak-stats.demolab.com?user=Mr-Don-Leo&mode=daily&theme=dark&hide_border=false&border_radius=5" height="220" />
 </div>
 
-###
+-----
 
-<h1 align="center">👩‍💻  About Me</h1>
+## Connect
 
-###
-
-```c
-printf("Hello World, My name is Max");
-```
-
-###
-
-<p align="left">Welcome to my little GitHub den, a little safe place to store my coding journey and projects.<br><br>Currently residing in UAE, with an ambition in the world of coding. <br><br>I am a student at 42 Abu Dhabi, slowly making my way up in projects. And evolving my skills in various languages and programming in general, whether it's with personal projects or 42-related projects.<br><br>The passion for coding and the digital world grew with the thought of 'creating' something that can function, and people can use. It felt great to me, and I yearn to work on things that can make a positive change for people to use and catch sight of. It is not only contained within the spectrum of the screen, but it also falls into the physical world, like robots 🤖.</p>
-
-###
-
-<h3 align="left">Coding Voyage</h3>
-
-###
-
-<p align="left">I started to learn basics of Python when I was in my last years of secondary school and the beginning of high school. Then, it was on and off learning. And around 2022-2023, I began to take it more seriously, up until I joined 42 Abu Dhabi, when it became a much more serious way of learning.</p>
-
-###
-
-<h3 align="left">🛠 Language and tools</h3>
-
-###
-
-<div align="left">
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg" height="40" alt="c logo"  />
-  <img width="12" />
-  <img src="https://skillicons.dev/icons?i=react" height="40" alt="react logo"  />
-  <img width="12" />
-  <img src="https://skillicons.dev/icons?i=js" height="40" alt="JS logo"  />
-  <img width="12" />
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" height="40" alt="python logo"  />
-  <img width="12" />
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sqlite/sqlite-original.svg" height="40" alt="sqlite logo"  />
-  <img width="12" />
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/blender/blender-original.svg" height="40" alt="blender logo"  />
-  <img width="12" />
-  <img src="https://skillicons.dev/icons?i=ps" height="40" alt="adobephotoshop logo"  />
-</div>
-
-###
-
-<h3 align="left">🔥   My Stats :</h3>
-
-###
-
-<div align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=Mr-Don-Leo&hide_title=false&hide_rank=false&show_icons=true&include_all_commits=true&count_private=true&disable_animations=false&theme=dracula&locale=en&hide_border=false&order=1" height="150" alt="stats graph"  />
-  <img src="https://github-readme-stats.vercel.app/api/top-langs?username=Mr-Don-Leo&locale=en&hide_title=false&layout=compact&card_width=320&langs_count=5&theme=dracula&hide_border=false&order=2" height="150" alt="languages graph"  />
-</div>
-
-###
-
-<div align="center">
-  <img src="https://streak-stats.demolab.com?user=Mr-Don-Leo&locale=en&mode=daily&theme=dark&hide_border=false&border_radius=5&order=3" height="220" alt="streak graph"  />
-</div>
-
-###
+[![LinkedIn](https://img.shields.io/static/v1?message=LinkedIn&logo=linkedin&label=&color=0077B5&logoColor=white&style=for-the-badge)](https://www.linkedin.com/in/maxim-babayan-429181273/)
+[![Instagram](https://img.shields.io/static/v1?message=Instagram&logo=instagram&label=&color=E4405F&logoColor=white&style=for-the-badge)](https://www.instagram.com/maxim.babayan/)
+[![Telegram](https://img.shields.io/static/v1?message=Telegram&logo=telegram&label=&color=2CA5E0&logoColor=white&style=for-the-badge)](https://t.me/baduser)
