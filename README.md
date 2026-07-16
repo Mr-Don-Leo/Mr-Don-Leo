@@ -1,30 +1,30 @@
 # Maksim Babayan
 
-Abu Dhabi · 42 student · Building things that (mostly) work
+Abu Dhabi · Builder · Shipping > Talking
 
------
+---
 
-I write code. Sometimes it compiles on the first try. I’m told this is rare and I should not get used to it.
+I write code and manage people who write code. Occasionally both compile on the first try. I'm told not to get used to either.
 
-Currently focused on two products: a car community platform for the MENA region — because car people deserve better than WhatsApp groups — and a luxury gifting platform in the UAE called **Haditi**. Both are works in progress. Both are real.
+**What I'm building:**
 
-Background is a mix of system programming at 42, some game dev, and enough JavaScript to know I prefer working closer to the metal. I pick up what the project needs and move on.
+🎁 **Haditi** — luxury gifting platform in the UAE. Turns out making gifting feel premium is harder than making it expensive.
 
------
+✒️ **Montegrappa** — e-commerce work for people who spend more on a pen than I did on my first car. Respect.
+
+🧪 **[characters.maxus.life](https://characters.maxus.life)** — a fun project. No business model, no roadmap, no regrets.
+
+**Portfolio:** [me.maxus.life](https://me.maxus.life)
+
+---
 
 ## Stack
 
 `C` · `JavaScript` · `React` · `Python` · `SQL` · `Blender` · `Photoshop`
 
-Currently working with: `Node.js / Fastify` · `Mobile UI/UX`
+Currently deep in: `Node.js / Fastify` · `Mobile UI/UX` · `Magento / Shopify / WordPress` (someone has to)
 
------
-
-## 42 Abu Dhabi
-
-Project-based, no lectures, peer-evaluated. You either figure it out or you figure it out. There’s no third option.
-
------
+---
 
 ## Stats
 
@@ -37,8 +37,9 @@ Project-based, no lectures, peer-evaluated. You either figure it out or you figu
   <img src="https://streak-stats.demolab.com?user=Mr-Don-Leo&mode=daily&theme=dark&hide_border=false&border_radius=5" height="220" />
 </div>
 
------
+---
 
+[![Portfolio](https://img.shields.io/static/v1?message=Portfolio&logo=googlechrome&label=&color=111111&logoColor=white&style=for-the-badge)](https://me.maxus.life)
 [![LinkedIn](https://img.shields.io/static/v1?message=LinkedIn&logo=linkedin&label=&color=0077B5&logoColor=white&style=for-the-badge)](https://www.linkedin.com/in/maxim-babayan-429181273/)
 [![Instagram](https://img.shields.io/static/v1?message=Instagram&logo=instagram&label=&color=E4405F&logoColor=white&style=for-the-badge)](https://www.instagram.com/maxim.babayan/)
 [![Telegram](https://img.shields.io/static/v1?message=Telegram&logo=telegram&label=&color=2CA5E0&logoColor=white&style=for-the-badge)](https://t.me/baduser)
