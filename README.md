@@ -18,6 +18,8 @@ Turns out making gifting feel *premium* is harder than making it expensive.
 🧪 **[characters.maxus.life](https://characters.maxus.life)** — A completely pointless passion project.  
 No business model, no roadmap, no regrets.
 
+**[BelongCue](https://belongcue.maxus.life/)** - Save receipts, track return windows and warranties, and keep proof ready for the moment you need it. (I am lazy to not copy paste it)
+
 **Portfolio:** [me.maxus.life](https://me.maxus.life)
 
 ---
