@@ -8,20 +8,6 @@ I write code and manage people who write code.
 Occasionally both compile on the first try.  
 I'm told not to get used to either.
 
-### What I'm building:
-
-🎁 **Haditi** — Luxury gifting platform in the UAE.  
-Turns out making gifting feel *premium* is harder than making it expensive.
-
-✒️ **Montegrappa** — E-commerce for people who spend more on a pen than I did on my first car. Respect.
-
-🧪 **[characters.maxus.life](https://characters.maxus.life)** — A completely pointless passion project.  
-No business model, no roadmap, no regrets.
-
-**[BelongCue](https://belongcue.maxus.life/)** - Save receipts, track return windows and warranties, and keep proof ready for the moment you need it. (I am lazy to not copy paste it)
-
-**Portfolio:** [me.maxus.life](https://me.maxus.life)
-
 ---
 
 ### Stack
