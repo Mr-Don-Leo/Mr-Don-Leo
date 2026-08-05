@@ -28,12 +28,6 @@ Also trying to convince myself that another **Figma → Code** rabbit hole is a 
 ---
 
 ### Stats
-
-<div align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=Mr-Don-Leo&show_icons=true&include_all_commits=true&count_private=true&theme=dracula&hide_border=true&cache_seconds=86400" height="150" />
-  <img src="https://github-readme-stats.vercel.app/api/top-langs?username=Mr-Don-Leo&layout=compact&langs_count=6&theme=dracula&hide_border=true&cache_seconds=86400" height="150" />
-</div>
-
 <div align="center">
   <img src="https://github-readme-streak-stats-eight.vercel.app?user=Mr-Don-Leo&theme=dracula&hide_border=true&border_radius=5" height="180" />
 </div>
