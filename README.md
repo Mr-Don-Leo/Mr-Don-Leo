@@ -31,7 +31,6 @@ Also trying to convince myself that another **Figma → Code** rabbit hole is a 
 <div align="center">
   <img src="https://github-readme-streak-stats-eight.vercel.app?user=Mr-Don-Leo&theme=dracula&hide_border=true&border_radius=5" height="180" />
 </div>
----
 
 ### Connect with me
 
