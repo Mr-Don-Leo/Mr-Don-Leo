@@ -1,15 +1,21 @@
 #!/usr/bin/env python3
-"""Generate a terminal-style GitHub stats SVG card.
+"""Generate terminal-style GitHub stats SVG cards.
 
 Fetches profile data via the GitHub GraphQL API (stars, followers,
-languages, PRs, issues, commit contributions) and renders a deterministic,
-dependency-free SVG into assets/github-stats.svg.
+languages, PRs, issues, commit contributions) and renders deterministic,
+dependency-free SVG cards into assets/.
 
 Usage:
     GITHUB_TOKEN=<token> python3 scripts/generate_stats.py [username]
 
-Only the Python standard library is used. See README.md for details on
-which statistics are exact and which are approximations.
+Only the Python standard library is used.
+
+Accuracy notes (with the standard GITHUB_TOKEN):
+  - repositories / stars / followers / PRs / issues: exact, public data.
+  - commits: GitHub's contribution count (default-branch commits, summed
+    per calendar year) — matches the profile graph, not `git log` totals.
+    Private contributions are invisible to the token and are not guessed.
+  - languages: Linguist byte share across owned non-fork public repos.
 """
 
 from __future__ import annotations
@@ -27,7 +33,7 @@ from xml.sax.saxutils import escape
 
 GRAPHQL_URL = "https://api.github.com/graphql"
 DEFAULT_USERNAME = "Mr-Don-Leo"
-OUTPUT_PATH = Path(__file__).resolve().parent.parent / "assets" / "github-stats.svg"
+ASSETS_DIR = Path(__file__).resolve().parent.parent / "assets"
 
 MAX_RETRIES = 3
 RETRY_BACKOFF_SECONDS = 5
@@ -149,10 +155,7 @@ def fetch_total_commits(token: str, login: str, created_at: str) -> int:
     """Sum commit contributions year by year since account creation.
 
     contributionsCollection only accepts a range of at most one year, so the
-    account lifetime is split into calendar-year windows. Counts follow
-    GitHub's contribution rules (default-branch commits in repos the token
-    can see), so this matches the profile contribution graph rather than a
-    raw git count.
+    account lifetime is split into calendar-year windows.
     """
     created_year = int(created_at[:4])
     now = datetime.now(timezone.utc)
@@ -166,7 +169,7 @@ def fetch_total_commits(token: str, login: str, created_at: str) -> int:
 
 
 def collect_stats(token: str, username: str) -> dict:
-    """Gather every statistic shown on the card into a plain dict."""
+    """Gather every statistic shown on the cards into a plain dict."""
     profile = graphql(token, PROFILE_QUERY, {"login": username})["user"]
     repos = fetch_repositories(token, username)
     commits = fetch_total_commits(token, username, profile["createdAt"])
@@ -183,7 +186,11 @@ def collect_stats(token: str, username: str) -> dict:
         (r for r in repos if r["pushedAt"]),
         key=lambda r: (r["pushedAt"], r["name"]),
         reverse=True,
-    )[:3]
+    )[:5]
+
+    def primary_language(repo: dict) -> str:
+        edges = repo["languages"]["edges"]
+        return edges[0]["node"]["name"] if edges else "—"
 
     return {
         "login": profile["login"],
@@ -195,7 +202,15 @@ def collect_stats(token: str, username: str) -> dict:
         "issues": profile["issues"]["totalCount"],
         # Sorted by bytes desc, then name, for deterministic output.
         "languages": sorted(languages.items(), key=lambda kv: (-kv[1], kv[0]))[:5],
-        "recent": [(r["name"], r["pushedAt"][:10]) for r in recent],
+        "recent": [
+            {
+                "name": r["name"],
+                "pushed": r["pushedAt"][:10],
+                "language": primary_language(r),
+                "stars": r["stargazerCount"],
+            }
+            for r in recent
+        ],
     }
 
 
@@ -209,7 +224,7 @@ FONT_SIZE = 14
 LINE_HEIGHT = 24
 CHAR_WIDTH = 8.4
 PAD_X = 28
-WIDTH = 560
+CARD_WIDTH = 840
 
 COLORS = {
     "bg": "#0b0e14",
@@ -226,7 +241,9 @@ COLORS = {
     "muted": "#4a5772",
 }
 
-BAR_CHARS = 18
+BAR_CHARS = 24
+# Character column where the right-hand section of the wide card starts.
+RIGHT_COL = 46
 
 
 def text(x: float, y: int, content: str, fill: str, bold: bool = False) -> str:
@@ -242,20 +259,36 @@ def col(chars: float) -> float:
     return PAD_X + chars * CHAR_WIDTH
 
 
-def render_svg(stats: dict, generated_at: datetime) -> str:
-    lines: list[str] = []
-    y = 76  # first baseline below the header bar
+def card(title: str, aria: str, height: int, body: list[str]) -> str:
+    """Wrap rendered body fragments in the shared terminal-window chrome."""
+    body_svg = "\n".join("  " + line for line in body)
+    return f"""<svg xmlns="http://www.w3.org/2000/svg" width="{CARD_WIDTH}" height="{height}" viewBox="0 0 {CARD_WIDTH} {height}" role="img" aria-label="{escape(aria)}">
+  <style>
+    text {{
+      font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', Menlo, Consolas, 'DejaVu Sans Mono', monospace;
+      font-size: {FONT_SIZE}px;
+    }}
+    .cursor {{ animation: blink 1.2s step-end infinite; }}
+    @keyframes blink {{ 50% {{ opacity: 0; }} }}
+  </style>
+  <rect x="1.5" y="1.5" width="{CARD_WIDTH - 3}" height="{height - 3}" rx="12" fill="{COLORS['bg']}" stroke="{COLORS['border']}" stroke-opacity="0.55" stroke-width="1.5"/>
+  <circle cx="{PAD_X}" cy="30" r="5" fill="#ff5f56"/>
+  <circle cx="{PAD_X + 18}" cy="30" r="5" fill="#ffbd2e"/>
+  <circle cx="{PAD_X + 36}" cy="30" r="5" fill="#27c93f"/>
+  <text x="{PAD_X + 54}" y="35" fill="{COLORS['title']}" font-weight="bold">{escape(title)}</text>
+  <line x1="{PAD_X - 12}" y1="48" x2="{CARD_WIDTH - PAD_X + 12}" y2="48" stroke="{COLORS['frame']}" stroke-width="1"/>
+{body_svg}
+</svg>
+"""
 
-    def emit(*fragments: str) -> None:
-        lines.extend(fragments)
 
-    def newline(count: int = 1) -> None:
-        nonlocal y
-        y += LINE_HEIGHT * count
+def render_stats_card(stats: dict, generated_at: datetime) -> str:
+    """Wide main card: activity tree on the left, language bars on the right."""
+    body: list[str] = []
+    top = 76  # first baseline below the header bar
 
-    # -- activity tree ------------------------------------------------------
-    emit(text(col(0), y, "github.activity", COLORS["section"], bold=True))
-    newline()
+    # -- left column: activity tree ----------------------------------------
+    body.append(text(col(0), top, "github.activity", COLORS["section"], bold=True))
     rows = [
         ("repositories", stats["repositories"]),
         ("stars", stats["stars"]),
@@ -265,84 +298,72 @@ def render_svg(stats: dict, generated_at: datetime) -> str:
         ("followers", stats["followers"]),
     ]
     for index, (label, value) in enumerate(rows):
+        y = top + LINE_HEIGHT * (index + 1)
         branch = "└─" if index == len(rows) - 1 else "├─"
-        emit(
-            text(col(0), y, branch, COLORS["tree"]),
-            text(col(3), y, label, COLORS["label"]),
-            text(col(17), y, f"{value:>7,}", COLORS["value"], bold=True),
-        )
-        newline()
-    newline()
+        body.append(text(col(0), y, branch, COLORS["tree"]))
+        body.append(text(col(3), y, label, COLORS["label"]))
+        body.append(text(col(17), y, f"{value:>7,}", COLORS["value"], bold=True))
 
-    # -- languages ----------------------------------------------------------
-    emit(text(col(0), y, "languages", COLORS["section"], bold=True))
-    newline()
+    # -- right column: language bars ---------------------------------------
+    body.append(text(col(RIGHT_COL), top, "languages", COLORS["section"], bold=True))
     total_bytes = sum(size for _, size in stats["languages"]) or 1
-    for name, size in stats["languages"]:
+    for index, (name, size) in enumerate(stats["languages"]):
+        y = top + LINE_HEIGHT * (index + 1)
         share = size / total_bytes
         filled = max(1, round(share * BAR_CHARS))
-        bar = "█" * filled + "░" * (BAR_CHARS - filled)
-        emit(
-            text(col(0), y, f"{name[:12]:<13}", COLORS["label"]),
-            text(col(13), y, bar[:filled], COLORS["bar_fill"]),
-            text(col(13 + filled), y, bar[filled:], COLORS["bar_empty"]),
-            text(col(13 + BAR_CHARS + 2), y, f"{share * 100:4.1f}%", COLORS["value"]),
+        body.append(text(col(RIGHT_COL), y, f"{name[:12]:<13}", COLORS["label"]))
+        body.append(text(col(RIGHT_COL + 13), y, "█" * filled, COLORS["bar_fill"]))
+        body.append(
+            text(col(RIGHT_COL + 13 + filled), y, "░" * (BAR_CHARS - filled), COLORS["bar_empty"])
         )
-        newline()
+        body.append(
+            text(col(RIGHT_COL + 13 + BAR_CHARS + 2), y, f"{share * 100:4.1f}%", COLORS["value"])
+        )
     if not stats["languages"]:
-        emit(text(col(0), y, "no language data", COLORS["muted"]))
-        newline()
-    newline()
+        body.append(text(col(RIGHT_COL), top + LINE_HEIGHT, "no language data", COLORS["muted"]))
 
-    # -- recent activity ----------------------------------------------------
-    emit(text(col(0), y, "recent.pushes", COLORS["section"], bold=True))
-    newline()
-    for name, pushed in stats["recent"]:
-        emit(
-            text(col(0), y, "→", COLORS["tree"]),
-            text(col(2), y, name[:26], COLORS["value"]),
-            text(col(30), y, pushed, COLORS["muted"]),
-        )
-        newline()
-    newline()
-
-    # -- prompt with blinking cursor ---------------------------------------
+    # -- bottom line: prompt + blinking cursor left, timestamp right -------
+    prompt_y = top + LINE_HEIGHT * (len(rows) + 1) + 10
     prompt = f"{stats['login'].lower()}@github:~$"
-    emit(text(col(0), y, prompt, COLORS["prompt"], bold=True))
-    cursor_x = col(len(prompt) + 1)
-    emit(
-        f'<rect class="cursor" x="{cursor_x:g}" y="{y - 12}" '
+    body.append(text(col(0), prompt_y, prompt, COLORS["prompt"], bold=True))
+    body.append(
+        f'<rect class="cursor" x="{col(len(prompt) + 1):g}" y="{prompt_y - 12}" '
         f'width="8" height="15" fill="{COLORS["prompt"]}"/>'
     )
-    newline()
-
-    # -- footer -------------------------------------------------------------
     stamp = generated_at.strftime("%Y-%m-%d %H:%M UTC")
-    emit(
-        f'<text x="{WIDTH - PAD_X}" y="{y}" fill="{COLORS["muted"]}" '
+    body.append(
+        f'<text x="{CARD_WIDTH - PAD_X}" y="{prompt_y}" fill="{COLORS["muted"]}" '
         f'text-anchor="end" font-size="11">last sync: {escape(stamp)}</text>'
     )
-    height = y + 26
 
     title = f"{stats['login'].upper()} // SYSTEM MONITOR"
-    return f"""<svg xmlns="http://www.w3.org/2000/svg" width="{WIDTH}" height="{height}" viewBox="0 0 {WIDTH} {height}" role="img" aria-label="GitHub statistics for {escape(stats['login'])}">
-  <style>
-    text {{
-      font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', Menlo, Consolas, 'DejaVu Sans Mono', monospace;
-      font-size: {FONT_SIZE}px;
-    }}
-    .cursor {{ animation: blink 1.2s step-end infinite; }}
-    @keyframes blink {{ 50% {{ opacity: 0; }} }}
-  </style>
-  <rect x="1.5" y="1.5" width="{WIDTH - 3}" height="{height - 3}" rx="12" fill="{COLORS['bg']}" stroke="{COLORS['border']}" stroke-opacity="0.55" stroke-width="1.5"/>
-  <circle cx="{PAD_X}" cy="30" r="5" fill="#ff5f56"/>
-  <circle cx="{PAD_X + 18}" cy="30" r="5" fill="#ffbd2e"/>
-  <circle cx="{PAD_X + 36}" cy="30" r="5" fill="#27c93f"/>
-  <text x="{PAD_X + 54}" y="35" fill="{COLORS['title']}" font-weight="bold">{escape(title)}</text>
-  <line x1="{PAD_X - 12}" y1="48" x2="{WIDTH - PAD_X + 12}" y2="48" stroke="{COLORS['frame']}" stroke-width="1"/>
-  {chr(10).join('  ' + line for line in lines)}
-</svg>
-"""
+    aria = f"GitHub statistics for {stats['login']}"
+    return card(title, aria, prompt_y + 22, body)
+
+
+def render_activity_card(stats: dict) -> str:
+    """Recent-pushes card: repo name, primary language, stars, push date."""
+    body: list[str] = []
+    top = 76
+    rows = stats["recent"]
+
+    for index, repo in enumerate(rows):
+        y = top + LINE_HEIGHT * index
+        body.append(text(col(0), y, "→", COLORS["tree"]))
+        body.append(text(col(2), y, repo["name"][:30], COLORS["value"], bold=True))
+        body.append(text(col(34), y, repo["language"][:14], COLORS["label"]))
+        body.append(text(col(50), y, f"★ {repo['stars']:>4,}", COLORS["bar_fill"]))
+        body.append(
+            f'<text x="{CARD_WIDTH - PAD_X}" y="{y}" fill="{COLORS["muted"]}" '
+            f'text-anchor="end" xml:space="preserve">{escape(repo["pushed"])}</text>'
+        )
+    if not rows:
+        body.append(text(col(0), top, "no recent activity", COLORS["muted"]))
+
+    height = top + LINE_HEIGHT * max(len(rows) - 1, 0) + 26
+    title = "GIT.LOG // RECENT PUSHES"
+    aria = f"Recently active repositories of {stats['login']}"
+    return card(title, aria, height, body)
 
 
 # ---------------------------------------------------------------------------
@@ -377,11 +398,16 @@ def main() -> int:
         print(f"error: {err}", file=sys.stderr)
         return 1
 
-    svg = render_svg(stats, datetime.now(timezone.utc))
-    if write_if_changed(svg, OUTPUT_PATH):
-        print(f"updated {OUTPUT_PATH}")
-    else:
-        print("stats unchanged, file left untouched")
+    now = datetime.now(timezone.utc)
+    cards = {
+        ASSETS_DIR / "github-stats.svg": render_stats_card(stats, now),
+        ASSETS_DIR / "github-activity.svg": render_activity_card(stats),
+    }
+    for path, svg in cards.items():
+        if write_if_changed(svg, path):
+            print(f"updated {path.name}")
+        else:
+            print(f"{path.name} unchanged, left untouched")
     return 0
 
 
