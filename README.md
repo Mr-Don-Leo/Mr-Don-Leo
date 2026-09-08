@@ -14,6 +14,8 @@ I'm told not to get used to either.
 
 ![GitHub Stats](./assets/github-stats.svg)
 
+![Contribution Streak](./assets/github-streak.svg)
+
 ![Recent Activity](./assets/github-activity.svg)
 
 </div>

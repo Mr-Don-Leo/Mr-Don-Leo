@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="840" height="168" viewBox="0 0 840 168" role="img" aria-label="Contribution totals and streaks of Mr-Don-Leo">
+  <style>
+    text {
+      font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', Menlo, Consolas, 'DejaVu Sans Mono', monospace;
+      font-size: 14px;
+    }
+    .cursor { animation: blink 1.2s step-end infinite; }
+    @keyframes blink { 50% { opacity: 0; } }
+  </style>
+  <rect x="1.5" y="1.5" width="837" height="165" rx="12" fill="#0b0e14" stroke="#00e5a0" stroke-opacity="0.55" stroke-width="1.5"/>
+  <circle cx="28" cy="30" r="5" fill="#ff5f56"/>
+  <circle cx="46" cy="30" r="5" fill="#ffbd2e"/>
+  <circle cx="64" cy="30" r="5" fill="#27c93f"/>
+  <text x="82" y="35" fill="#00e5a0" font-weight="bold">CONTRIB.LOG // STREAK</text>
+  <line x1="16" y1="48" x2="824" y2="48" stroke="#1c2333" stroke-width="1"/>
+  <text x="140" y="98" fill="#e6edf3" font-weight="bold" font-size="26" text-anchor="middle">1,270</text>
+  <text x="140" y="124" fill="#8b9bb4" text-anchor="middle">total contributions</text>
+  <text x="140" y="146" fill="#4a5772" font-size="11" text-anchor="middle">since 2023</text>
+  <text x="420" y="98" fill="#e6edf3" font-weight="bold" font-size="26" text-anchor="middle">41 days</text>
+  <text x="420" y="124" fill="#8b9bb4" text-anchor="middle">current streak</text>
+  <text x="420" y="146" fill="#4a5772" font-size="11" text-anchor="middle">2026-07-29 → 2026-09-07</text>
+  <text x="700" y="98" fill="#e6edf3" font-weight="bold" font-size="26" text-anchor="middle">41 days</text>
+  <text x="700" y="124" fill="#8b9bb4" text-anchor="middle">longest streak</text>
+  <text x="700" y="146" fill="#4a5772" font-size="11" text-anchor="middle">2026-07-29 → 2026-09-07</text>
+  <line x1="280" y1="66" x2="280" y2="148" stroke="#1c2333" stroke-width="1"/>
+  <line x1="560" y1="66" x2="560" y2="148" stroke="#1c2333" stroke-width="1"/>
+</svg>

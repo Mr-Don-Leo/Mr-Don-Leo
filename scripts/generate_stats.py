@@ -80,11 +80,16 @@ query($login: String!, $cursor: String) {
 }
 """
 
-COMMITS_QUERY = """
+CONTRIBUTIONS_QUERY = """
 query($login: String!, $from: DateTime!, $to: DateTime!) {
   user(login: $login) {
     contributionsCollection(from: $from, to: $to) {
       totalCommitContributions
+      contributionCalendar {
+        weeks {
+          contributionDays { date contributionCount }
+        }
+      }
     }
   }
 }
@@ -151,28 +156,79 @@ def fetch_repositories(token: str, login: str) -> list[dict]:
         cursor = connection["pageInfo"]["endCursor"]
 
 
-def fetch_total_commits(token: str, login: str, created_at: str) -> int:
-    """Sum commit contributions year by year since account creation.
+def fetch_contributions(token: str, login: str, created_at: str) -> tuple[int, dict[str, int]]:
+    """Fetch commit totals and per-day contribution counts since creation.
 
     contributionsCollection only accepts a range of at most one year, so the
-    account lifetime is split into calendar-year windows.
+    account lifetime is split into calendar-year windows. Returns the summed
+    commit contributions plus a date -> contribution-count map. The calendar
+    pads each window to full weeks, so adjacent windows overlap by a few days;
+    keying by date deduplicates them.
     """
     created_year = int(created_at[:4])
     now = datetime.now(timezone.utc)
-    total = 0
+    commits = 0
+    day_counts: dict[str, int] = {}
     for year in range(created_year, now.year + 1):
         start = f"{year}-01-01T00:00:00Z"
         end = f"{year}-12-31T23:59:59Z"
-        data = graphql(token, COMMITS_QUERY, {"login": login, "from": start, "to": end})
-        total += data["user"]["contributionsCollection"]["totalCommitContributions"]
-    return total
+        data = graphql(
+            token, CONTRIBUTIONS_QUERY, {"login": login, "from": start, "to": end}
+        )
+        collection = data["user"]["contributionsCollection"]
+        commits += collection["totalCommitContributions"]
+        for week in collection["contributionCalendar"]["weeks"]:
+            for day in week["contributionDays"]:
+                day_counts[day["date"]] = day["contributionCount"]
+    return commits, day_counts
+
+
+def compute_streaks(day_counts: dict[str, int], today: str) -> dict:
+    """Derive total contributions and current/longest streaks from day counts.
+
+    A streak is consecutive calendar days with at least one contribution. The
+    current streak is counted back from today; a zero for today itself does
+    not break it (the day isn't over yet).
+    """
+    days = sorted((d, c) for d, c in day_counts.items() if d <= today)
+    total = sum(c for _, c in days)
+
+    longest = {"days": 0, "start": None, "end": None}
+    run_start = None
+    run_len = 0
+    for date, count in days:
+        if count > 0:
+            if run_len == 0:
+                run_start = date
+            run_len += 1
+            if run_len > longest["days"]:
+                longest = {"days": run_len, "start": run_start, "end": date}
+        else:
+            run_len = 0
+
+    index = len(days) - 1
+    if index >= 0 and days[index][1] == 0:
+        index -= 1
+    end_index = index
+    while index >= 0 and days[index][1] > 0:
+        index -= 1
+    current_len = end_index - index
+    current = {
+        "days": current_len,
+        "start": days[index + 1][0] if current_len else None,
+        "end": days[end_index][0] if current_len else None,
+    }
+
+    return {"total": total, "current": current, "longest": longest}
 
 
 def collect_stats(token: str, username: str) -> dict:
     """Gather every statistic shown on the cards into a plain dict."""
     profile = graphql(token, PROFILE_QUERY, {"login": username})["user"]
     repos = fetch_repositories(token, username)
-    commits = fetch_total_commits(token, username, profile["createdAt"])
+    commits, day_counts = fetch_contributions(token, username, profile["createdAt"])
+    today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    streaks = compute_streaks(day_counts, today)
 
     source_repos = [r for r in repos if not r["isFork"]]
 
@@ -194,6 +250,10 @@ def collect_stats(token: str, username: str) -> dict:
 
     return {
         "login": profile["login"],
+        "since": profile["createdAt"][:4],
+        "contributions": streaks["total"],
+        "current_streak": streaks["current"],
+        "longest_streak": streaks["longest"],
         "repositories": profile["publicRepos"]["totalCount"],
         "followers": profile["followers"]["totalCount"],
         "stars": sum(r["stargazerCount"] for r in repos),
@@ -366,6 +426,50 @@ def render_activity_card(stats: dict) -> str:
     return card(title, aria, height, body)
 
 
+def render_streak_card(stats: dict) -> str:
+    """Compact card: total contributions plus current and longest streak."""
+
+    def span(streak: dict) -> str:
+        if not streak["days"]:
+            return "—"
+        return f"{streak['start']} → {streak['end']}"
+
+    def days(streak: dict) -> str:
+        return f"{streak['days']:,} day" + ("" if streak["days"] == 1 else "s")
+
+    columns = [
+        (f"{stats['contributions']:,}", "total contributions", f"since {stats['since']}"),
+        (days(stats["current_streak"]), "current streak", span(stats["current_streak"])),
+        (days(stats["longest_streak"]), "longest streak", span(stats["longest_streak"])),
+    ]
+
+    body: list[str] = []
+    height = 168
+    for index, (value, label, detail) in enumerate(columns):
+        x = CARD_WIDTH * (2 * index + 1) / 6
+        body.append(
+            f'<text x="{x:g}" y="98" fill="{COLORS["value"]}" font-weight="bold" '
+            f'font-size="26" text-anchor="middle">{escape(value)}</text>'
+        )
+        body.append(
+            f'<text x="{x:g}" y="124" fill="{COLORS["label"]}" '
+            f'text-anchor="middle">{escape(label)}</text>'
+        )
+        body.append(
+            f'<text x="{x:g}" y="146" fill="{COLORS["muted"]}" font-size="11" '
+            f'text-anchor="middle">{escape(detail)}</text>'
+        )
+    for divider in (CARD_WIDTH / 3, CARD_WIDTH * 2 / 3):
+        body.append(
+            f'<line x1="{divider:g}" y1="66" x2="{divider:g}" y2="{height - 20}" '
+            f'stroke="{COLORS["frame"]}" stroke-width="1"/>'
+        )
+
+    title = "CONTRIB.LOG // STREAK"
+    aria = f"Contribution totals and streaks of {stats['login']}"
+    return card(title, aria, height, body)
+
+
 # ---------------------------------------------------------------------------
 # Output
 # ---------------------------------------------------------------------------
@@ -402,6 +506,7 @@ def main() -> int:
     cards = {
         ASSETS_DIR / "github-stats.svg": render_stats_card(stats, now),
         ASSETS_DIR / "github-activity.svg": render_activity_card(stats),
+        ASSETS_DIR / "github-streak.svg": render_streak_card(stats),
     }
     for path, svg in cards.items():
         if write_if_changed(svg, path):
