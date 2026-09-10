@@ -14,13 +14,13 @@
   <text x="82" y="35" fill="#00e5a0" font-weight="bold">GIT.LOG // RECENT PUSHES</text>
   <line x1="16" y1="48" x2="824" y2="48" stroke="#1c2333" stroke-width="1"/>
   <text x="28" y="76" fill="#3d4a63" xml:space="preserve">→</text>
-  <text x="44.8" y="76" fill="#e6edf3" font-weight="bold" xml:space="preserve">tack</text>
-  <text x="313.6" y="76" fill="#8b9bb4" xml:space="preserve">Rust</text>
+  <text x="44.8" y="76" fill="#e6edf3" font-weight="bold" xml:space="preserve">Mr-Don-Leo</text>
+  <text x="313.6" y="76" fill="#8b9bb4" xml:space="preserve">Python</text>
   <text x="448" y="76" fill="#00b4ff" xml:space="preserve">★    0</text>
   <text x="812" y="76" fill="#4a5772" text-anchor="end" xml:space="preserve">2026-09-10</text>
   <text x="28" y="100" fill="#3d4a63" xml:space="preserve">→</text>
-  <text x="44.8" y="100" fill="#e6edf3" font-weight="bold" xml:space="preserve">Mr-Don-Leo</text>
-  <text x="313.6" y="100" fill="#8b9bb4" xml:space="preserve">Python</text>
+  <text x="44.8" y="100" fill="#e6edf3" font-weight="bold" xml:space="preserve">tack</text>
+  <text x="313.6" y="100" fill="#8b9bb4" xml:space="preserve">Rust</text>
   <text x="448" y="100" fill="#00b4ff" xml:space="preserve">★    0</text>
   <text x="812" y="100" fill="#4a5772" text-anchor="end" xml:space="preserve">2026-09-10</text>
   <text x="28" y="124" fill="#3d4a63" xml:space="preserve">→</text>
