@@ -1,10 +1,9 @@
 # Maksim Babayan
 
-**Abu Dhabi** · Builder · Shipping > Talking
+**Abu Dhabi**
 
 ---
 
-I write code and manage people who write code.  
 Occasionally both compile on the first try.  
 I'm told not to get used to either.
 
